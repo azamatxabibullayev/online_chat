@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    /* Styles for the chat list */
+    h2 {
+        text-align: center;
+        margin-top: 20px;
+        color: #333;
+    }
+
+    form {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    input[type="text"] {
+        padding: 10px;
+        width: 300px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    h3 {
+        margin-top: 30px;
+        font-size: 20px;
+        color: #333;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    ul li {
+        margin-bottom: 10px;
+    }
+
+    ul li a {
+        display: block;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-decoration: none;
+        color: #333;
+    }
+
+    ul li a:hover {
+        background-color: #e9ecef;
+    }
+
+    .search-results {
+        margin-top: 20px;
+    }
+
+    .search-results h3 {
+        margin-top: 0;
+        font-size: 18px;
+    }
+
+    .search-results ul li {
+        margin-bottom: 8px;
+    }
+
+    .search-results ul li a {
+        background-color: #ffc107;
+        color: #333;
+    }
+
+    .search-results ul li a:hover {
+        background-color: #ffca2c;
+    }
+</style>
+
+<h2>Your Chats</h2>
+<form method="GET" action="{% url 'chat_list' %}">
+    <input type="text" name="q" placeholder="Search for users...">
+    <button type="submit">Search</button>
+</form>
+
+{% if search_results %}
+<div class="search-results">
+    <h3>Search Results:</h3>
+    <ul>
+        {% for user in search_results %}
+        <li><a href="{% url 'start_chat' user.id %}">{{ user.username }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<h3>Your Chats:</h3>
+<ul>
+    {% for chat in chats %}
+    <li><a href="{% url 'chat_detail' chat.id %}">{{ chat }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

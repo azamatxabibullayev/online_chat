@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Chat Application{% endblock %}</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+
+        main {
+            padding: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'chat_list' %}">Chats</a>
+        <a href="{% url 'group_list' %}">Groups</a>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'signup' %}">Sign Up</a>
+        {% endif %}
+    </nav>
+</header>
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+</body>
+</html>

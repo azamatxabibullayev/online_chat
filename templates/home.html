@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<style>
+    /* Additional styles specific to this template */
+    h1 {
+        color: #333;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    p {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<h1>Online chat</h1>
+{% if user.is_authenticated %}
+<p>Hello, {{ user.username }}!</a></p>
+{% else %}
+<p>Please <a href="{% url 'login' %}">login</a> to get started !</p>
+{% endif %}
+{% endblock %}
